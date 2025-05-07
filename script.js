@@ -18,13 +18,11 @@ function buscarLogPorId(id){
 module.exports = {registrarLog, buscarLogPorId}
 
 const express = require('express');
-const rotasLogs = require('./routes/logsRoutes');
 const app = express();
 const port = 8000;
 
 app.use(express.json());
 
-app.use('/', rotasLogs);
 
 app.listen(port, () => {
     console.log(`Rodando em http://localhost:${port}`)
@@ -44,6 +42,7 @@ app.post('/logs', (req, res) => {
     const id = registrarLog(nome);
     res.status(201).json({mensagem: 'O Log foi registrado', id});
 });
+
 
 
 app.get('/logs/:id', (req, res) => {
