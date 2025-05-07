@@ -25,5 +25,20 @@ app.use(express.json());
 
 
 app.listen(port, () => {
-    console.log(`Rodando em http:localhost:${port}`);
+    console.log(`Rodando em http://localhost:${port}`)
+})
+
+app.get('/', (req, res) => {
+    res.send('Ta funcionando');
+});
+
+app.post('/logs', (req, res) => {
+    const {nome} = req.body;
+
+    if (!nome) {
+        return res.status(400).json({erro: 'Por favor o seu nome'});
+    }
+
+    const id = registrarLog(nome);
+    res.status(201).json({mensagem: 'O Log foi registrado', id});
 });
