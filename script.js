@@ -33,6 +33,8 @@ app.get('/', (req, res) => {
 });
 
 app.post('/logs', (req, res) => {
+    console.log('Corpo da requisição:', req.body);
+    
     const {nome} = req.body;
 
     if (!nome) {
