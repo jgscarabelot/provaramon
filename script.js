@@ -42,3 +42,20 @@ app.post('/logs', (req, res) => {
     const id = registrarLog(nome);
     res.status(201).json({mensagem: 'O Log foi registrado', id});
 });
+
+const fs = require('fs');
+
+
+app.get('/logs/:id', (req, res) => {
+    const idProcurado = req.params.id;
+
+    const conteudo = fs.readFileSync('logs.txt', 'utf-8');
+    const linhas = conteudo.split('\n');
+    const logEncontrado = linhas.find(linha => linha.startsWith(idProcurado));
+
+    if (logEncontrado) {
+        res.status(200).json({log: logEncontrado});
+    }else {
+        res.status(404).json({erro: 'Não encontrado'});
+    }
+});
